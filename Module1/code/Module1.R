@@ -28,6 +28,7 @@ summary(custdata$age)
 summary(custdata$income)
 #UNITS
 Income = custdata$income/1000
+class(Income)
 summary(Income)
 #Spotting problems using graphics and visualization
 summary(custdata$age)
@@ -35,14 +36,12 @@ summary(custdata$age)
 #Listing 3.6 Plotting a histogram
 library(ggplot2) 
 ggplot(custdata) +
-  geom_histogram(aes(x=age),
-                 binwidth=5, fill="gray") 
+  geom_histogram(aes(x=age),binwidth=5, fill="gray") 
 #DENSITY PLOTS
-ggplot(custdata) + geom_density(aes(x=income)) +
-  scale_x_continuous(labels=dollar)
+ggplot(custdata) + geom_density(aes(x=income)) 
 #Listing 3.8 Creating a log-scaled density plot
 ggplot(custdata) + geom_density(aes(x=income)) +
-  scale_x_log10(breaks=c(100,1000,10000,100000), labels=dollar) +
+  scale_x_log10(breaks=c(100,1000,10000,100000)) +
   annotation_logticks(sides="bt")
 #BAR CHARTS
 #Listing 3.9 Producing a horizontal bar chart
@@ -148,18 +147,19 @@ custdata$is.employed.fix <- ifelse(is.na(custdata$is.employed),
                                           "employed",
                                           "not employed"))
 #MISSING VALUES IN NUMERIC DATA
-summary(custdata$Income)
+summary(custdata$income)
 #WHEN VALUES ARE MISSING RANDOMLY
-meanIncome <- mean(custdata$Income, na.rm=T)
-Income.fix <- ifelse(is.na(custdata$Income),
+meanIncome <- mean(custdata$income, na.rm=T)
+meanIncome
+Income.fix <- ifelse(is.na(custdata$income),
                      meanIncome,
-                     custdata$Income)
+                     custdata$income)
 summary(Income.fix)
 #WHEN VALUES ARE MISSING SYSTEMATICALLY
 #Listing 4.3 Converting missing numeric data to a level
 breaks <-c(0, 10000, 50000, 100000, 250000, 1000000)
 Income.groups <-
-  cut(custdata$Income,
+  cut(custdata$income,
       breaks=breaks, include.lowest=T)
 summary(Income.groups)
 Income.groups <- as.character(Income.groups)
@@ -190,6 +190,7 @@ summary(custdata$age.range)
 #Listing 4.7 Centering on mean age
 summary(custdata$age)
 meanage <- mean(custdata$age)
+meanage
 custdata$age.normalized <- custdata$age/meanage
 summary(custdata$age.normalized)
 
@@ -209,6 +210,7 @@ summary(custdata$age.normalized)
 custdata$gp <- runif(dim(custdata)[1])
 testSet <- subset(custdata, custdata$gp <= 0.1)
 trainingSet <- subset(custdata, custdata$gp > 0.1)
+dim(custdata)
 dim(testSet)[1]
 dim(trainingSet)[1]
 
