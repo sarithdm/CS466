@@ -78,3 +78,28 @@ for(rep in 1:length(aucs)) {
 }
 mean(aucs)
 sd(aucs)
+
+#Using linear regression
+dtrain <- subset(psub,ORIGRANDGROUP >= 500)
+dtest <- subset(psub,ORIGRANDGROUP < 500)
+model <- lm(log(PINCP,base=10) ~ AGEP + SEX + COW + SCHL,data=dtrain)
+dtest$predLogPINCP <- predict(model,newdata=dtest)
+dtrain$predLogPINCP <- predict(model,newdata=dtrain)
+model <- lm(log(PINCP,base=10) ~ AGEP + SEX + COW + SCHL, data=dtrain)
+dtest$predLogPINCP <- predict(model,newdata=dtest)
+#Using logistic regression
+train <- sdata[sdata$ORIGRANDGROUP<=5,]
+test <- sdata[sdata$ORIGRANDGROUP>5,]
+complications <- c("ULD_MECO","ULD_PRECIP","ULD_BREECH")
+riskfactors <- c("URF_DIAB", "URF_CHYPER", "URF_PHYPER",
+                 "URF_ECLAM")
+y <- "atRisk"
+x <- c("PWGT",
+       "UPREVIS",
+       "CIG_REC",
+       "GESTREC3",
+       "DPLURAL",
+       complications,
+       riskfactors)
+fmla <- paste(y, paste(x, collapse="+"), sep="~")
+print(fmla)
