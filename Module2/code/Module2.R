@@ -26,7 +26,7 @@ for(v in catVars) {
   dTest[,pi] <- mkPredC(dTrain[,outcome],dTrain[,v],dTest[,v])
 }
 #Listing 6.6 Scoring categorical variables by AUC
-#library('ROCR')
+library('ROCR')
 calcAUC <- function(predcol,outcol) {
   perf <- performance(prediction(predcol,outcol==pos),'auc')
   as.numeric(perf@y.values)
