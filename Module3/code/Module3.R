@@ -128,6 +128,14 @@ x
 y <- array(21:40, dim=c(4,5))
 y
 
+
+x <- array(1:25, dim=c(6,7))
+x
+y <- array(11:35, dim=c(6,7))
+y
+
+x+y
+
 y <-t(y)
 y
 
@@ -141,17 +149,18 @@ y
 x * y
 
 x %*% y
-x <- array(1:4, dim=c(2,2))
+
+x <- array(1:6, dim=c(2,3))
 x
-y <- array(10:13, dim=c(2,2))
+y <- array(10:15, dim=c(2,3))
 y
 
 x * y
+y <- t(y)
 
 #matrix product
 x %*% y
 
-y <- t(y)
 
 x %*% y
 
